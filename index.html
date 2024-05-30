@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API's</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+        }
+        body{
+            background-color: #22223b;
+        }
+
+        section {
+            max-width: 90%;
+            margin: auto;
+            color: white;
+            justify-content: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #22223b;
+        }
+
+        .name, .email, .phoneno, .gender {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .name button, .email button, .phoneno button, .gender button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 5px 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .name h2 {
+            font-size: 28px;
+        }
+
+        .profile {
+            text-align: center;
+        }
+
+        .details {
+            background: #4a4e69;
+            display: flex;
+            border-radius: 10px;
+            width: 100%;
+            padding: 50px 50px;
+            justify-content: center;
+            margin-top: 50px;
+            align-items: center;
+            column-gap: 80px;
+        }
+
+        .profile img{
+            border-radius: 50%;
+            border: 5px solid black;
+        }
+
+        .last{
+            font-size: 20px!important;
+            text-transform: capitalize;
+            font-weight: lighter;
+            margin-top: 20px;
+        }
+
+         h2{
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .cssmail{
+            font-size: 20px!important;
+            text-transform: capitalize;
+            margin-top: 20px;
+        }
+
+        .cssname{
+            font-size: 20px!important;
+            text-transform: capitalize!important;
+            margin-top: 20px!important;
+        }
+
+        .cssphone{
+            font-size: 20px!important;
+            text-transform: capitalize!important;
+            margin-top: 20px!important;
+        }
+
+        
+
+        @media(max-width: 968px){
+
+
+            section {
+            padding:50px 0px!important;
+            height: auto;
+        }
+            .details {
+            background: #4a4e69;
+            display: flex;
+            border-radius: 10px;
+            width: 100%;
+            padding: 50px 50px;
+            justify-content: center;
+            margin-top: 50px;
+            align-items: center;
+            flex-direction: column;
+            column-gap: 80px;
+            row-gap: 50px;
+        }
+
+        .columns{
+            width: 100%;
+            margin: auto;
+            border-bottom: 1px solid #e4d7d7;
+            text-align: center;
+            padding-bottom: 39px;
+        }
+
+        .columns h2{
+            word-break: break-word!important;
+            line-height: 1.5rem!important;
+        }
+
+        }
+
+
+     
+
+    </style>
+</head>
+<body>
+    <section>
+        <div class="profile">
+            <img src="./user.png" alt="image" id="image">
+            <h3 style="margin-top: 10px;"> Profile Picture</h3>
+        </div>
+
+        <div class="details">
+            <div class="columns">
+                <h2>Name</h2>
+                <h2 class="name"></h2>
+                <!-- <button>Name</button> -->
+            </div>
+            <div class="columns">
+                <h2 style="text-align: center;">Email</h2>
+                <h2 class="email"></h2>
+                <!-- <button>Email</button> -->
+            </div>
+            <div class="columns">
+                <h2 style="text-align: center;">Phone</h2>
+                <h2 class="phone"></h2>
+                <!-- <button>Phone No</button> -->
+            </div>
+            <div class="columns">
+                <h2>Gender</h2>
+                <h2 class="gender"></h2>
+                <!-- <button>Gender</button> -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const neon = document.getElementById('image');
+        const primarygender = document.querySelector('.gender');
+        const primaryemail = document.querySelector('.email');
+        const primaryname = document.querySelector('.name');
+        const primaryphone = document.querySelector('.phone');
+        const api = 'https://randomuser.me/api/';
+
+        async function musha() {
+            try {
+                const res = await fetch(api);
+                const data = await res.json();
+
+                const gettingpicture = data.results[0].picture.large;
+                neon.src = gettingpicture; // Corrected assignment
+
+                // Gender
+                const gender = data.results[0].gender;       
+                primarygender.innerText = gender;
+                primarygender.classList.add('last');
+
+                // Email
+                const secemail = data.results[0].email;     
+                primaryemail.innerText = secemail;
+                primaryemail.classList.add('cssmail');  
+                
+                // Name
+                const secname = data.results[0].name.first;     
+                primaryname.innerText = secname;
+                primaryname.classList.add('cssname'); // Added class for styling
+                
+                // Phone
+                const secphone = data.results[0].phone;     
+                primaryphone.innerText = secphone;
+                primaryphone.classList.add('cssphone');
+                    
+            } catch (error) {   
+                console.log('this is an error', error);
+            }
+        }
+
+
+
+
+
+
+        // This is Writen by chat GPT👇 👇
+
+
+
+
+        // async function musha() {
+        //     try {
+        //         const res = await fetch(api);
+        //         const data = await res.json();
+
+        //         const user = data.results[0];
+        //         neon.src = user.picture.large;
+        //         primarygender.innerText = user.gender;
+        //         primaryemail.innerText = user.email;
+        //         primaryname.innerText = user.name.first;
+        //         primaryphone.innerText = user.phone;
+        //     } catch (error) {
+        //         console.error('Error:', error);
+        //     }
+        // }
+
+
+
+        // Initial call to set the image source
+        musha();
+    </script>
+</body>
+</html>
